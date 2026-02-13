@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Committees</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .committees-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .committee-box {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .committee-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .logo-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .committee-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .committee-description {
+            font-size: 1rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Different gradient colors for each committee */
+        .committee-box:nth-child(1) .logo-container {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .committee-box:nth-child(2) .logo-container {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .committee-box:nth-child(3) .logo-container {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        .committee-box:nth-child(4) .logo-container {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        .committee-box:nth-child(5) .logo-container {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+        .committee-box:nth-child(6) .logo-container {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+        .committee-box:nth-child(7) .logo-container {
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6a88 100%);
+        }
+        .committee-box:nth-child(8) .logo-container {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+        .committee-box:nth-child(9) .logo-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* Events Section */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .event-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .event-date {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .event-body {
+            padding: 25px;
+        }
+
+        .event-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .event-details {
+            color: #666;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .event-committee {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
+
+        /* Match Section */
+        .match-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .match-intro {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .match-intro h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .interest-tag {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .interest-tag:hover {
+            background: #e0e0e0;
+        }
+
+        .interest-tag.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .match-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: transform 0.3s ease;
+        }
+
+        .match-button:hover {
+            transform: scale(1.05);
+        }
+
+        .match-result {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .match-result.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .matched-committee {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 15px 0;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .committees-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                padding: 15px 20px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+                display: none;
+                gap: 10px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+                text-align: center;
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .interests-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">CommitteHub</div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active" onclick="showSection('home')">Home</a></li>
+                <li><a href="#events" onclick="showSection('events')">Events</a></li>
+                <li><a href="#match" onclick="showSection('match')">Your Match</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Home Section (Our Committees) -->
+        <section id="home" class="active">
+            <h1>Our Committees</h1>
+            
+            <div class="committees-grid">
+                <div class="committee-box">
+
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkqsruUssLvPLAPGUhoEI-9FtZgl6WXbOm-w&s">
+                    
+                    <div class="committee-name">Enthusia</div>
+                    <div class="committee-description">Arts & Traditions</div>
+                </div>
+
+                <div class="committee-box">
+                    <img src="https://media.licdn.com/dms/image/v2/D4D0BAQGBEWUttNQhyw/company-logo_200_200/company-logo_200_200/0/1697992368624?e=2147483647&v=beta&t=sc30gJoFQTLRVw9ifAHAlGncEj5NsYy_RIHgWO2fh6U">
+                    <div class="committee-name">Technovanza</div>
+                    <div class="committee-description">Athletics & Wellness</div>
+                </div>
+
+                <div class="committee-box">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM7Z5zq5lsj_gZIqCTSB3jQRnT1VvqVq21Bg&s">
+                    <div class="committee-name">Community of Coders</div>
+                    <div class="committee-description">Learning & Excellence</div>
+                </div>
+
+                <div class="committee-box">
+                   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSJkEWQRWdimj4ipAnhhw0ZSjNjKKkcoXqvQ&s" >
+                    <div class="committee-name">Swacch VJTI</div>
+                    <div class="committee-description">Innovation & Technology</div>
+                </div>
+
+                <div class="committee-box">
+                    <div class="logo-container">🎪</div>
+                    <div class="committee-name">Events Committee</div>
+                    <div class="committee-description">Planning & Coordination</div>
+                </div>
+
+                <div class="committee-box">
+                    <div class="logo-container">📢</div>
+                    <div class="committee-name">Media Committee</div>
+                    <div class="committee-description">Communication & Outreach</div>
+                </div>
+
+                <div class="committee-box">
+                    <div class="logo-container">🤝</div>
+                    <div class="committee-name">Social Committee</div>
+                    <div class="committee-description">Community & Networking</div>
+                </div>
+
+                <div class="committee-box">
+                    <div class="logo-container">🌱</div>
+                    <div class="committee-name">Environment Committee</div>
+                    <div class="committee-description">Sustainability & Green</div>
+                </div>
+
+                <div class="committee-box">
+                    <div class="logo-container">💼</div>
+                    <div class="committee-name">Finance Committee</div>
+                    <div class="committee-description">Budget & Resources</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Section -->
+        <section id="events">
+            <h1>Upcoming Events</h1>
+            
+            <div class="events-grid">
+                <div class="event-card">
+                    <div class="event-header">
+                        <div class="event-date">Feb 15</div>
+                        <div>2026</div>
+                    </div>
+                    <div class="event-body">
+                        <div class="event-title">Annual Cultural Festival</div>
+                        <div class="event-details">📍 Main Auditorium</div>
+                        <div class="event-details">🕐 10:00 AM - 6:00 PM</div>
+                        <div class="event-details">Celebrate diversity through music, dance, and food from around the world</div>
+                        <span class="event-committee">Culture Committee</span>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-header">
+                        <div class="event-date">Feb 20</div>
+                        <div>2026</div>
+                    </div>
+                    <div class="event-body">
+                        <div class="event-title">Inter-College Sports Meet</div>
+                        <div class="event-details">📍 Sports Complex</div>
+                        <div class="event-details">🕐 8:00 AM - 5:00 PM</div>
+                        <div class="event-details">Compete in basketball, football, athletics and more</div>
+                        <span class="event-committee">Sports Committee</span>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-header">
+                        <div class="event-date">Feb 25</div>
+                        <div>2026</div>
+                    </div>
+                    <div class="event-body">
+                        <div class="event-title">Tech Innovation Summit</div>
+                        <div class="event-details">📍 Conference Hall</div>
+                        <div class="event-details">🕐 9:00 AM - 4:00 PM</div>
+                        <div class="event-details">Showcase projects, attend workshops, and network with tech leaders</div>
+                        <span class="event-committee">Technical Committee</span>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-header">
+                        <div class="event-date">Mar 05</div>
+                        <div>2026</div>
+                    </div>
+                    <div class="event-body">
+                        <div class="event-title">Academic Excellence Awards</div>
+                        <div class="event-details">📍 Grand Hall</div>
+                        <div class="event-details">🕐 3:00 PM - 6:00 PM</div>
+                        <div class="event-details">Recognizing outstanding academic achievements</div>
+                        <span class="event-committee">Academic Committee</span>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-header">
+                        <div class="event-date">Mar 10</div>
+                        <div>2026</div>
+                    </div>
+                    <div class="event-body">
+                        <div class="event-title">Green Campus Initiative</div>
+                        <div class="event-details">📍 Campus Grounds</div>
+                        <div class="event-details">🕐 7:00 AM - 12:00 PM</div>
+                        <div class="event-details">Tree plantation drive and eco-awareness campaign</div>
+                        <span class="event-committee">Environment Committee</span>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-header">
+                        <div class="event-date">Mar 15</div>
+                        <div>2026</div>
+                    </div>
+                    <div class="event-body">
+                        <div class="event-title">Spring Social Mixer</div>
+                        <div class="event-details">📍 Student Lounge</div>
+                        <div class="event-details">🕐 5:00 PM - 9:00 PM</div>
+                        <div class="event-details">Network, games, music, and refreshments</div>
+                        <span class="event-committee">Social Committee</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Your Match Section -->
+        <section id="match">
+            <h1>Find Your Committee Match</h1>
+            
+            <div class="match-container">
+                <div class="match-intro">
+                    <h3>🎯 Discover Your Perfect Committee</h3>
+                    <p>Select your interests and we'll match you with the best committee for you!</p>
+                </div>
+
+                <div class="interests-grid">
+                    <div class="interest-tag" onclick="toggleInterest(this)">
+                        <div>🎨 Arts & Creativity</div>
+                    </div>
+                    <div class="interest-tag" onclick="toggleInterest(this)">
+                        <div>⚽ Sports & Fitness</div>
+                    </div>
+                    <div class="interest-tag" onclick="toggleInterest(this)">
+                        <div>📚 Academic Excellence</div>
+                    </div>
+                    <div class="interest-tag" onclick="toggleInterest(this)">
+                        <div>💻 Technology</div>
+                    </div>
+                    <div class="interest-tag" onclick="toggleInterest(this)">
+                        <div>🎉 Event Planning</div>
+                    </div>
+                    <div class="interest-tag" onclick="toggleInterest(this)">
+                        <div>📱 Social Media</div>
+                    </div>
+                    <div class="interest-tag" onclick="toggleInterest(this)">
+                        <div>🤝 Networking</div>
+                    </div>
+                    <div class="interest-tag" onclick="toggleInterest(this)">
+                        <div>🌍 Environment</div>
+                    </div>
+                    <div class="interest-tag" onclick="toggleInterest(this)">
+                        <div>💰 Finance & Budget</div>
+                    </div>
+                    <div class="interest-tag" onclick="toggleInterest(this)">
+                        <div>✍️ Writing</div>
+                    </div>
+                    <div class="interest-tag" onclick="toggleInterest(this)">
+                        <div>🎭 Performance</div>
+                    </div>
+                    <div class="interest-tag" onclick="toggleInterest(this)">
+                        <div>📸 Photography</div>
+                    </div>
+                </div>
+
+                <button class="match-button" onclick="findMatch()">Find My Match!</button>
+
+                <div class="match-result" id="matchResult">
+                    <h3>✨ Your Perfect Match!</h3>
+                    <div class="matched-committee" id="matchedCommittee"></div>
+                    <p id="matchDescription"></p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked nav link
+            event.target.classList.add('active');
+            
+            // Close mobile menu if open
+            document.getElementById('navLinks').classList.remove('active');
+        }
+
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Interest Selection
+        let selectedInterests = [];
+
+        function toggleInterest(element) {
+            element.classList.toggle('selected');
+            const interest = element.textContent.trim();
+            
+            if (selectedInterests.includes(interest)) {
+                selectedInterests = selectedInterests.filter(i => i !== interest);
+            } else {
+                selectedInterests.push(interest);
+            }
+        }
+
+        // Match Finding Algorithm
+        function findMatch() {
+            if (selectedInterests.length === 0) {
+                alert('Please select at least one interest!');
+                return;
+            }
+
+            const matches = {
+                '🎨 Arts & Creativity': { committee: 'Culture Committee', description: 'Perfect for expressing your creative side!' },
+                '⚽ Sports & Fitness': { committee: 'Sports Committee', description: 'Great choice for staying active and healthy!' },
+                '📚 Academic Excellence': { committee: 'Academic Committee', description: 'Ideal for those passionate about learning!' },
+                '💻 Technology': { committee: 'Technical Committee', description: 'Perfect for tech enthusiasts and innovators!' },
+                '🎉 Event Planning': { committee: 'Events Committee', description: 'Great for organizing amazing experiences!' },
+                '📱 Social Media': { committee: 'Media Committee', description: 'Perfect for digital storytellers!' },
+                '🤝 Networking': { committee: 'Social Committee', description: 'Ideal for building connections!' },
+                '🌍 Environment': { committee: 'Environment Committee', description: 'Perfect for making the world greener!' },
+                '💰 Finance & Budget': { committee: 'Finance Committee', description: 'Great for financial management skills!' },
+                '✍️ Writing': { committee: 'Media Committee', description: 'Perfect for content creators!' },
+                '🎭 Performance': { committee: 'Culture Committee', description: 'Ideal for performers and artists!' },
+                '📸 Photography': { committee: 'Media Committee', description: 'Perfect for visual storytellers!' }
+            };
+
+            // Find best match based on first selected interest
+            const firstInterest = selectedInterests[0];
+            const match = matches[firstInterest] || { committee: 'Social Committee', description: 'A great all-around choice!' };
+
+            // Show result
+            document.getElementById('matchedCommittee').textContent = match.committee;
+            document.getElementById('matchDescription').textContent = match.description;
+            document.getElementById('matchResult').classList.add('show');
+
+            // Scroll to result
+            document.getElementById('matchResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+</body>
+</html>
